@@ -1,0 +1,2464 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="mathlive.js"></script>
+  <link rel="stylesheet" href="mathlive-fonts.css">
+  <title>Graphing Calculator</title>
+  <link href="graphbody.css" rel="stylesheet">
+  <link href="maingraph.css" rel="stylesheet">
+  <style data-jss="" data-meta="MuiSvgIcon">
+.MuiSvgIcon-root {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  font-size: 1.5rem;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.MuiSvgIcon-colorPrimary {
+  color: #3f51b5;
+}
+
+.MuiSvgIcon-colorSecondary {
+  color: #f50057;
+}
+
+.MuiSvgIcon-colorAction {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.MuiSvgIcon-colorError {
+  color: #f44336;
+}
+
+.MuiSvgIcon-colorDisabled {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.MuiSvgIcon-fontSizeInherit {
+  font-size: inherit;
+}
+
+.MuiSvgIcon-fontSizeSmall {
+  font-size: 1.25rem;
+}
+
+.MuiSvgIcon-fontSizeLarge {
+  font-size: 2.1875rem;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTouchRipple">
+.MuiTouchRipple-root {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.MuiTouchRipple-ripple {
+  opacity: 0;
+  position: absolute;
+}
+
+.MuiTouchRipple-rippleVisible {
+  opacity: 0.3;
+  animation: MuiTouchRipple-keyframes-enter 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1);
+}
+
+.MuiTouchRipple-ripplePulsate {
+  animation-duration: 200ms;
+}
+
+.MuiTouchRipple-child {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 1;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.MuiTouchRipple-childLeaving {
+  opacity: 0;
+  animation: MuiTouchRipple-keyframes-exit 550ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.MuiTouchRipple-childPulsate {
+  top: 0;
+  left: 0;
+  position: absolute;
+  animation: MuiTouchRipple-keyframes-pulsate 2500ms cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
+}
+
+@-webkit-keyframes MuiTouchRipple-keyframes-enter {
+  0% {
+    opacity: 0.1;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes MuiTouchRipple-keyframes-exit {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes MuiTouchRipple-keyframes-pulsate {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.92);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+  </style>
+  <style data-jss="" data-meta="MuiButtonBase">
+.MuiButtonBase-root {
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+  margin: 0;
+  display: inline-flex;
+  outline: 0;
+  padding: 0;
+  position: relative;
+  align-items: center;
+  user-select: none;
+  border-radius: 0;
+  vertical-align: middle;
+  -moz-appearance: none;
+  justify-content: center;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.MuiButtonBase-root::-moz-focus-inner {
+  border-style: none;
+}
+
+.MuiButtonBase-root.Mui-disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+@media print {
+  .MuiButtonBase-root {
+    -webkit-print-color-adjust: exact;
+  }
+}
+  </style>
+  <style data-jss="" data-meta="MuiFab">
+.MuiFab-root {
+  color: rgba(0, 0, 0, 0.87);
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  font-size: 0.875rem;
+  min-width: 0;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  min-height: 36px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 50%;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  background-color: #e0e0e0;
+}
+
+.MuiFab-root:active {
+  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+}
+
+.MuiFab-root:hover {
+  text-decoration: none;
+  background-color: #d5d5d5;
+}
+
+.MuiFab-root.Mui-focusVisible {
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+
+.MuiFab-root.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+@media (hover: none) {
+  .MuiFab-root:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.MuiFab-root:hover.Mui-disabled {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.MuiFab-label {
+  width: 100%;
+  display: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+}
+
+.MuiFab-primary {
+  color: #fff;
+  background-color: #3f51b5; 
+}
+
+.MuiFab-primary:hover {
+  background-color: #303f9f;
+}
+
+@media (hover: none) {
+  .MuiFab-primary:hover {
+    background-color: #3f51b5;
+  }
+}
+
+.MuiFab-secondary {
+  color: #fff;
+  background-color: #f50057;
+}
+
+.MuiFab-secondary:hover {
+  background-color: #c51162;
+}
+
+@media (hover: none) {
+  .MuiFab-secondary:hover {
+    background-color: #f50057;
+  }
+}
+
+.MuiFab-extended {
+  width: auto;
+  height: 48px;
+  padding: 0 16px;
+  min-width: 48px;
+  min-height: auto;
+  border-radius: 24px;
+}
+
+.MuiFab-extended.MuiFab-sizeSmall {
+  width: auto;
+  height: 34px;
+  padding: 0 8px;
+  min-width: 34px;
+  border-radius: 17px;
+}
+
+.MuiFab-extended.MuiFab-sizeMedium {
+  width: auto;
+  height: 40px;
+  padding: 0 16px;
+  min-width: 40px;
+  border-radius: 20px;
+}
+
+.MuiFab-colorInherit {
+  color: inherit;
+}
+
+.MuiFab-sizeSmall {
+  width: 40px;
+  height: 40px;
+}
+
+.MuiFab-sizeMedium {
+  width: 48px;
+  height: 48px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiButton">
+.MuiButton-root {
+  color: rgba(0, 0, 0, 0.87);
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  min-width: 64px;
+  box-sizing: border-box;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+
+.MuiButton-root:hover {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.MuiButton-root.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+@media (hover: none) {
+  .MuiButton-root:hover {
+    background-color: transparent;
+  }
+}
+
+.MuiButton-root:hover.Mui-disabled {
+  background-color: transparent;
+}
+
+.MuiButton-label {
+  width: 100%;
+  display: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+}
+
+.MuiButton-text {
+  padding: 6px 8px;
+}
+
+.MuiButton-textPrimary {
+  color: #3f51b5;
+}
+
+.MuiButton-textPrimary:hover {
+  background-color: rgba(63, 81, 181, 0.04);
+}
+
+@media (hover: none) {
+  .MuiButton-textPrimary:hover {
+    background-color: transparent;
+  }
+}
+
+.MuiButton-textSecondary {
+  color: #f50057;
+}
+
+.MuiButton-textSecondary:hover {
+  background-color: rgba(245, 0, 87, 0.04);
+}
+
+@media (hover: none) {
+  .MuiButton-textSecondary:hover {
+    background-color: transparent;
+  }
+}
+
+.MuiButton-outlined {
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: 5px 15px;
+}
+
+.MuiButton-outlined.Mui-disabled {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.MuiButton-outlinedPrimary {
+  color: #3f51b5;
+  border: 1px solid rgba(63, 81, 181, 0.5);
+}
+
+.MuiButton-outlinedPrimary:hover {
+  border: 1px solid #3f51b5;
+  background-color: rgba(63, 81, 181, 0.04);
+}
+
+@media (hover: none) {
+  .MuiButton-outlinedPrimary:hover {
+    background-color: transparent;
+  }
+}
+
+.MuiButton-outlinedSecondary {
+  color: #f50057;
+  border: 1px solid rgba(245, 0, 87, 0.5);
+}
+
+.MuiButton-outlinedSecondary:hover {
+  border: 1px solid #f50057;
+  background-color: rgba(245, 0, 87, 0.04);
+}
+
+.MuiButton-outlinedSecondary.Mui-disabled {
+  border: 1px solid rgba(0, 0, 0, 0.26);
+}
+
+@media (hover: none) {
+  .MuiButton-outlinedSecondary:hover {
+    background-color: transparent;
+  }
+}
+
+.MuiButton-contained {
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  background-color: #e0e0e0;
+}
+
+.MuiButton-contained:hover {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  background-color: #d5d5d5;
+}
+
+.MuiButton-contained.Mui-focusVisible {
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+
+.MuiButton-contained:active {
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.MuiButton-contained.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+@media (hover: none) {
+  .MuiButton-contained:hover {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    background-color: #e0e0e0;
+  }
+}
+
+.MuiButton-contained:hover.Mui-disabled {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.MuiButton-containedPrimary {
+  color: #fff;
+  background-color: #3f51b5;
+}
+
+.MuiButton-containedPrimary:hover {
+  background-color: #303f9f;
+}
+
+@media (hover: none) {
+  .MuiButton-containedPrimary:hover {
+    background-color: #3f51b5;
+  }
+}
+
+.MuiButton-containedSecondary {
+  color: #fff;
+  background-color: #f50057;
+}
+
+.MuiButton-containedSecondary:hover {
+  background-color: #c51162;
+}
+
+@media (hover: none) {
+  .MuiButton-containedSecondary:hover {
+    background-color: #f50057;
+  }
+}
+
+.MuiButton-disableElevation {
+  box-shadow: none;
+}
+
+.MuiButton-disableElevation:hover {
+  box-shadow: none;
+}
+
+.MuiButton-disableElevation.Mui-focusVisible {
+  box-shadow: none;
+}
+
+.MuiButton-disableElevation:active {
+  box-shadow: none;
+}
+
+.MuiButton-disableElevation.Mui-disabled {
+  box-shadow: none;
+}
+
+.MuiButton-colorInherit {
+  color: inherit;
+  border-color: currentColor;
+}
+
+.MuiButton-textSizeSmall {
+  padding: 4px 5px;
+  font-size: 0.8125rem;
+}
+
+.MuiButton-textSizeLarge {
+  padding: 8px 11px;
+  font-size: 0.9375rem;
+}
+
+.MuiButton-outlinedSizeSmall {
+  padding: 3px 9px;
+  font-size: 0.8125rem;
+}
+
+.MuiButton-outlinedSizeLarge {
+  padding: 7px 21px;
+  font-size: 0.9375rem;
+}
+
+.MuiButton-containedSizeSmall {
+  padding: 4px 10px;
+  font-size: 0.8125rem;
+}
+
+.MuiButton-containedSizeLarge {
+  padding: 8px 22px;
+  font-size: 0.9375rem;
+}
+
+.MuiButton-fullWidth {
+  width: 100%;
+}
+
+.MuiButton-startIcon {
+  display: inherit;
+  margin-left: -4px;
+  margin-right: 8px;
+}
+
+.MuiButton-startIcon.MuiButton-iconSizeSmall {
+  margin-left: -2px;
+}
+
+.MuiButton-endIcon {
+  display: inherit;
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+.MuiButton-endIcon.MuiButton-iconSizeSmall {
+  margin-right: -2px;
+}
+
+.MuiButton-iconSizeSmall>*:first-child {
+  font-size: 18px;
+}
+
+.MuiButton-iconSizeMedium>*:first-child {
+  font-size: 20px;
+}
+
+.MuiButton-iconSizeLarge>*:first-child {
+  font-size: 22px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiDialog">
+@media print {
+  .MuiDialog-root {
+    position: absolute !important;
+  }
+}
+
+.MuiDialog-scrollPaper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.MuiDialog-scrollBody {
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.MuiDialog-scrollBody:after {
+  width: 0;
+  height: 100%;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.MuiDialog-container {
+  height: 100%;
+  outline: 0;
+}
+
+@media print {
+  .MuiDialog-container {
+    height: auto;
+  }
+}
+
+.MuiDialog-paper {
+  margin: 32px;
+  position: relative;
+  overflow-y: auto;
+}
+
+@media print {
+  .MuiDialog-paper {
+    box-shadow: none;
+    overflow-y: visible;
+  }
+}
+
+.MuiDialog-paperScrollPaper {
+  display: flex;
+  max-height: calc(100% - 64px);
+  flex-direction: column;
+}
+
+.MuiDialog-paperScrollBody {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.MuiDialog-paperWidthFalse {
+  max-width: calc(100% - 64px);
+}
+
+.MuiDialog-paperWidthXs {
+  max-width: 444px;
+}
+
+@media (max-width:507.95px) {
+  .MuiDialog-paperWidthXs.MuiDialog-paperScrollBody {
+    max-width: calc(100% - 64px);
+  }
+}
+
+.MuiDialog-paperWidthSm {
+  max-width: 600px;
+}
+
+@media (max-width:663.95px) {
+  .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+    max-width: calc(100% - 64px);
+  }
+}
+
+.MuiDialog-paperWidthMd {
+  max-width: 960px;
+}
+
+@media (max-width:1023.95px) {
+  .MuiDialog-paperWidthMd.MuiDialog-paperScrollBody {
+    max-width: calc(100% - 64px);
+  }
+}
+
+.MuiDialog-paperWidthLg {
+  max-width: 1280px;
+}
+
+@media (max-width:1343.95px) {
+  .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody {
+    max-width: calc(100% - 64px);
+  }
+}
+
+.MuiDialog-paperWidthXl {
+  max-width: 1920px;
+}
+
+@media (max-width:1983.95px) {
+  .MuiDialog-paperWidthXl.MuiDialog-paperScrollBody {
+    max-width: calc(100% - 64px);
+  }
+}
+
+.MuiDialog-paperFullWidth {
+  width: calc(100% - 64px);
+}
+
+.MuiDialog-paperFullScreen {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  max-width: 100%;
+  max-height: none;
+  border-radius: 0;
+}
+
+.MuiDialog-paperFullScreen.MuiDialog-paperScrollBody {
+  margin: 0;
+  max-width: 100%;
+}
+  </style>
+  <style data-id="-ucqi7i" data-refcount="2">
+.ML__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0
+}
+
+body.ML__fonts-loading .ML__base {
+  visibility: hidden
+}
+
+.ML__base {
+  visibility: inherit;
+  display: inline-block;
+  position: relative;
+  cursor: text
+}
+
+.ML__strut,
+.ML__strut--bottom {
+  display: inline-block;
+  min-height: .5em
+}
+
+.ML__small-delim {
+  font-family: KaTeX_Main
+}
+
+.ML__text {
+  font-family: var(--text-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  white-space: pre
+}
+
+.ML__cmr {
+  font-family: KaTeX_Main;
+  font-style: normal
+}
+
+.ML__mathit {
+  font-family: KaTeX_Math;
+  font-style: italic
+}
+
+.ML__mathbf {
+  font-family: KaTeX_Main;
+  font-weight: 700
+}
+
+.lcGreek.ML__mathbf {
+  font-family: KaTeX_Math;
+  font-weight: 400
+}
+
+.ML__mathbfit {
+  font-family: KaTeX_Math;
+  font-weight: 700;
+  font-style: italic
+}
+
+.ML__ams,
+.ML__bb {
+  font-family: KaTeX_AMS
+}
+
+.ML__cal {
+  font-family: KaTeX_Caligraphic
+}
+
+.ML__frak {
+  font-family: KaTeX_Fraktur
+}
+
+.ML__tt {
+  font-family: KaTeX_Typewriter
+}
+
+.ML__script {
+  font-family: KaTeX_Script
+}
+
+.ML__sans {
+  font-family: KaTeX_SansSerif
+}
+
+.ML__series_el,
+.ML__series_ul {
+  font-weight: 100
+}
+
+.ML__series_l {
+  font-weight: 200
+}
+
+.ML__series_sl {
+  font-weight: 300
+}
+
+.ML__series_sb {
+  font-weight: 500
+}
+
+.ML__bold,
+.ML__boldsymbol {
+  font-weight: 700
+}
+
+.ML__series_eb {
+  font-weight: 800
+}
+
+.ML__series_ub {
+  font-weight: 900
+}
+
+.ML__series_uc {
+  font-stretch: ultra-condensed
+}
+
+.ML__series_ec {
+  font-stretch: extra-condensed
+}
+
+.ML__series_c {
+  font-stretch: condensed
+}
+
+.ML__series_sc {
+  font-stretch: semi-condensed
+}
+
+.ML__series_sx {
+  font-stretch: semi-expanded
+}
+
+.ML__series_x {
+  font-stretch: expanded
+}
+
+.ML__series_ex {
+  font-stretch: extra-expanded
+}
+
+.ML__series_ux {
+  font-stretch: ultra-expanded
+}
+
+.ML__it {
+  font-style: italic
+}
+
+.ML__shape_ol {
+  -webkit-text-stroke: 1px #000;
+  text-stroke: 1px #000;
+  color: transparent
+}
+
+.ML__shape_sc {
+  font-variant: small-caps
+}
+
+.ML__shape_sl {
+  font-style: oblique
+}
+
+.ML__emph {
+  color: #bc2612
+}
+
+.ML__emph .ML__emph {
+  color: #0c7f99
+}
+
+.ML__highlight {
+  color: #007cb2;
+  background: #edd1b0
+}
+
+.ML__mathlive {
+  display: inline-block;
+  line-height: 0;
+  direction: ltr;
+  text-align: left;
+  text-indent: 0;
+  text-rendering: auto;
+  font-family: KaTeX_Main;
+  font-style: normal;
+  font-size-adjust: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  word-spacing: normal;
+  white-space: nowrap;
+  text-shadow: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  transform: translateZ(0)
+}
+
+.ML__mathlive .sz-10-7 {
+  font-size: .7em
+}
+
+.ML__mathlive .sz-10-5 {
+  font-size: .5em
+}
+
+.ML__mathlive .sz-7-10 {
+  font-size: 1.42857143em
+}
+
+.ML__mathlive .sz-7-5 {
+  font-size: .71428571em
+}
+
+.ML__mathlive .sz-5-10 {
+  font-size: 2em
+}
+
+.ML__mathlive .sz-5-7 {
+  font-size: 1.4em
+}
+
+.ML__mathlive .style-wrap {
+  position: relative
+}
+
+.ML__mathlive .vlist {
+  display: inline-block
+}
+
+.ML__mathlive .vlist>span {
+  display: block;
+  height: 0;
+  position: relative;
+  line-height: 0
+}
+
+.ML__mathlive .vlist>span>span {
+  display: inline-block
+}
+
+.ML__mathlive .msubsup {
+  text-align: left
+}
+
+.ML__mathlive .mfrac>span {
+  text-align: center
+}
+
+.ML__mathlive .mfrac .frac-line {
+  width: 100%
+}
+
+.ML__mathlive .mfrac .frac-line:after {
+  content: "";
+  display: block;
+  margin-top: -.04em;
+  min-height: .04em;
+  background: currentColor;
+  box-sizing: content-box;
+  transform: translate(0)
+}
+
+.ML__mathlive .negativethinspace {
+  display: inline-block;
+  margin-left: -.16667em
+}
+
+.ML__mathlive .thinspace {
+  display: inline-block;
+  width: .16667em
+}
+
+.ML__mathlive .mediumspace {
+  display: inline-block;
+  width: .22222em
+}
+
+.ML__mathlive .thickspace {
+  display: inline-block;
+  width: .27778em
+}
+
+.ML__mathlive .enspace {
+  display: inline-block;
+  width: .5em
+}
+
+.ML__mathlive .quad {
+  display: inline-block;
+  width: 1em
+}
+
+.ML__mathlive .qquad {
+  display: inline-block;
+  width: 2em
+}
+
+.ML__mathlive .llap,
+.ML__mathlive .rlap {
+  width: 0;
+  position: relative
+}
+
+.ML__mathlive .llap>.inner,
+.ML__mathlive .rlap>.inner {
+  position: absolute
+}
+
+.ML__mathlive .llap>.fix,
+.ML__mathlive .rlap>.fix {
+  display: inline-block
+}
+
+.ML__mathlive .llap>.inner {
+  right: 0
+}
+
+.ML__mathlive .rlap>.inner {
+  left: 0
+}
+
+.ML__mathlive .rule {
+  display: inline-block;
+  border: 0 solid;
+  position: relative
+}
+
+.ML__mathlive .overline .overline-line,
+.ML__mathlive .underline .underline-line {
+  width: 100%
+}
+
+.ML__mathlive .overline .overline-line:before,
+.ML__mathlive .underline .underline-line:before {
+  border-bottom-style: solid;
+  border-bottom-width: .04em;
+  content: "";
+  display: block
+}
+
+.ML__mathlive .overline .overline-line:after,
+.ML__mathlive .underline .underline-line:after {
+  border-bottom-style: solid;
+  border-bottom-width: .04em;
+  min-height: thin;
+  content: "";
+  display: block;
+  margin-top: -1px
+}
+
+.ML__mathlive .stretchy {
+  display: block;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  overflow: hidden
+}
+
+.ML__mathlive .stretchy:after,
+.ML__mathlive .stretchy:before {
+  content: ""
+}
+
+.ML__mathlive .stretchy svg {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  fill: currentColor;
+  stroke: currentColor;
+  fill-rule: nonzero;
+  fill-opacity: 1;
+  stroke-width: 1;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 1
+}
+
+.ML__mathlive .slice-1-of-2 {
+  left: 0
+}
+
+.ML__mathlive .slice-1-of-2,
+.ML__mathlive .slice-2-of-2 {
+  display: inline-flex;
+  position: absolute;
+  width: 50.2%;
+  overflow: hidden
+}
+
+.ML__mathlive .slice-2-of-2 {
+  right: 0
+}
+
+.ML__mathlive .slice-1-of-3 {
+  display: inline-flex;
+  position: absolute;
+  left: 0;
+  width: 25.1%;
+  overflow: hidden
+}
+
+.ML__mathlive .slice-2-of-3 {
+  display: inline-flex;
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  overflow: hidden
+}
+
+.ML__mathlive .slice-3-of-3 {
+  display: inline-flex;
+  position: absolute;
+  right: 0;
+  width: 25.1%;
+  overflow: hidden
+}
+
+.ML__mathlive .slice-1-of-1 {
+  display: inline-flex;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  overflow: hidden
+}
+
+.ML__mathlive .sqrt {
+  display: inline-block
+}
+
+.ML__mathlive .sqrt>.sqrt-sign {
+  font-family: KaTeX_Main;
+  position: relative
+}
+
+.ML__mathlive .sqrt .sqrt-line {
+  height: .04em;
+  width: 100%
+}
+
+.ML__mathlive .sqrt .sqrt-line:before {
+  content: "";
+  display: block;
+  margin-top: -.04em;
+  min-height: .04em;
+  background: currentColor
+}
+
+.ML__mathlive .sqrt .sqrt-line:after {
+  border-bottom-width: 1px;
+  content: " ";
+  display: block;
+  margin-top: -.1em;
+  transform: translate(0)
+}
+
+.ML__mathlive .sqrt>.root {
+  margin-left: .27777778em;
+  margin-right: -.55555556em
+}
+
+.ML__mathlive .sizing.reset-size1.size1,
+.ML__mathlive .sz-set.reset-size1.size1 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size1.size2,
+.ML__mathlive .sz-set.reset-size1.size2 {
+  font-size: 1.4em
+}
+
+.ML__mathlive .sizing.reset-size1.size3,
+.ML__mathlive .sz-set.reset-size1.size3 {
+  font-size: 1.6em
+}
+
+.ML__mathlive .sizing.reset-size1.size4,
+.ML__mathlive .sz-set.reset-size1.size4 {
+  font-size: 1.8em
+}
+
+.ML__mathlive .sizing.reset-size1.size5,
+.ML__mathlive .sz-set.reset-size1.size5 {
+  font-size: 2em
+}
+
+.ML__mathlive .sizing.reset-size1.size6,
+.ML__mathlive .sz-set.reset-size1.size6 {
+  font-size: 2.4em
+}
+
+.ML__mathlive .sizing.reset-size1.size7,
+.ML__mathlive .sz-set.reset-size1.size7 {
+  font-size: 2.88em
+}
+
+.ML__mathlive .sizing.reset-size1.size8,
+.ML__mathlive .sz-set.reset-size1.size8 {
+  font-size: 3.46em
+}
+
+.ML__mathlive .sizing.reset-size1.size9,
+.ML__mathlive .sz-set.reset-size1.size9 {
+  font-size: 4.14em
+}
+
+.ML__mathlive .sizing.reset-size1.size10,
+.ML__mathlive .sz-set.reset-size1.size10 {
+  font-size: 4.98em
+}
+
+.ML__mathlive .sizing.reset-size2.size1,
+.ML__mathlive .sz-set.reset-size2.size1 {
+  font-size: .71428571em
+}
+
+.ML__mathlive .sizing.reset-size2.size2,
+.ML__mathlive .sz-set.reset-size2.size2 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size2.size3,
+.ML__mathlive .sz-set.reset-size2.size3 {
+  font-size: 1.14285714em
+}
+
+.ML__mathlive .sizing.reset-size2.size4,
+.ML__mathlive .sz-set.reset-size2.size4 {
+  font-size: 1.28571429em
+}
+
+.ML__mathlive .sizing.reset-size2.size5,
+.ML__mathlive .sz-set.reset-size2.size5 {
+  font-size: 1.42857143em
+}
+
+.ML__mathlive .sizing.reset-size2.size6,
+.ML__mathlive .sz-set.reset-size2.size6 {
+  font-size: 1.71428571em
+}
+
+.ML__mathlive .sizing.reset-size2.size7,
+.ML__mathlive .sz-set.reset-size2.size7 {
+  font-size: 2.05714286em
+}
+
+.ML__mathlive .sizing.reset-size2.size8,
+.ML__mathlive .sz-set.reset-size2.size8 {
+  font-size: 2.47142857em
+}
+
+.ML__mathlive .sizing.reset-size2.size9,
+.ML__mathlive .sz-set.reset-size2.size9 {
+  font-size: 2.95714286em
+}
+
+.ML__mathlive .sizing.reset-size2.size10,
+.ML__mathlive .sz-set.reset-size2.size10 {
+  font-size: 3.55714286em
+}
+
+.ML__mathlive .sizing.reset-size3.size1,
+.ML__mathlive .sz-set.reset-size3.size1 {
+  font-size: .625em
+}
+
+.ML__mathlive .sizing.reset-size3.size2,
+.ML__mathlive .sz-set.reset-size3.size2 {
+  font-size: .875em
+}
+
+.ML__mathlive .sizing.reset-size3.size3,
+.ML__mathlive .sz-set.reset-size3.size3 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size3.size4,
+.ML__mathlive .sz-set.reset-size3.size4 {
+  font-size: 1.125em
+}
+
+.ML__mathlive .sizing.reset-size3.size5,
+.ML__mathlive .sz-set.reset-size3.size5 {
+  font-size: 1.25em
+}
+
+.ML__mathlive .sizing.reset-size3.size6,
+.ML__mathlive .sz-set.reset-size3.size6 {
+  font-size: 1.5em
+}
+
+.ML__mathlive .sizing.reset-size3.size7,
+.ML__mathlive .sz-set.reset-size3.size7 {
+  font-size: 1.8em
+}
+
+.ML__mathlive .sizing.reset-size3.size8,
+.ML__mathlive .sz-set.reset-size3.size8 {
+  font-size: 2.1625em
+}
+
+.ML__mathlive .sizing.reset-size3.size9,
+.ML__mathlive .sz-set.reset-size3.size9 {
+  font-size: 2.5875em
+}
+
+.ML__mathlive .sizing.reset-size3.size10,
+.ML__mathlive .sz-set.reset-size3.size10 {
+  font-size: 3.1125em
+}
+
+.ML__mathlive .sizing.reset-size4.size1,
+.ML__mathlive .sz-set.reset-size4.size1 {
+  font-size: .55555556em
+}
+
+.ML__mathlive .sizing.reset-size4.size2,
+.ML__mathlive .sz-set.reset-size4.size2 {
+  font-size: .77777778em
+}
+
+.ML__mathlive .sizing.reset-size4.size3,
+.ML__mathlive .sz-set.reset-size4.size3 {
+  font-size: .88888889em
+}
+
+.ML__mathlive .sizing.reset-size4.size4,
+.ML__mathlive .sz-set.reset-size4.size4 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size4.size5,
+.ML__mathlive .sz-set.reset-size4.size5 {
+  font-size: 1.11111111em
+}
+
+.ML__mathlive .sizing.reset-size4.size6,
+.ML__mathlive .sz-set.reset-size4.size6 {
+  font-size: 1.33333333em
+}
+
+.ML__mathlive .sizing.reset-size4.size7,
+.ML__mathlive .sz-set.reset-size4.size7 {
+  font-size: 1.6em
+}
+
+.ML__mathlive .sizing.reset-size4.size8,
+.ML__mathlive .sz-set.reset-size4.size8 {
+  font-size: 1.92222222em
+}
+
+.ML__mathlive .sizing.reset-size4.size9,
+.ML__mathlive .sz-set.reset-size4.size9 {
+  font-size: 2.3em
+}
+
+.ML__mathlive .sizing.reset-size4.size10,
+.ML__mathlive .sz-set.reset-size4.size10 {
+  font-size: 2.76666667em
+}
+
+.ML__mathlive .sizing.reset-size5.size1,
+.ML__mathlive .sz-set.reset-size5.size1 {
+  font-size: .5em
+}
+
+.ML__mathlive .sizing.reset-size5.size2,
+.ML__mathlive .sz-set.reset-size5.size2 {
+  font-size: .7em
+}
+
+.ML__mathlive .sizing.reset-size5.size3,
+.ML__mathlive .sz-set.reset-size5.size3 {
+  font-size: .8em
+}
+
+.ML__mathlive .sizing.reset-size5.size4,
+.ML__mathlive .sz-set.reset-size5.size4 {
+  font-size: .9em
+}
+
+.ML__mathlive .sizing.reset-size5.size5,
+.ML__mathlive .sz-set.reset-size5.size5 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size5.size6,
+.ML__mathlive .sz-set.reset-size5.size6 {
+  font-size: 1.2em
+}
+
+.ML__mathlive .sizing.reset-size5.size7,
+.ML__mathlive .sz-set.reset-size5.size7 {
+  font-size: 1.44em
+}
+
+.ML__mathlive .sizing.reset-size5.size8,
+.ML__mathlive .sz-set.reset-size5.size8 {
+  font-size: 1.73em
+}
+
+.ML__mathlive .sizing.reset-size5.size9,
+.ML__mathlive .sz-set.reset-size5.size9 {
+  font-size: 2.07em
+}
+
+.ML__mathlive .sizing.reset-size5.size10,
+.ML__mathlive .sz-set.reset-size5.size10 {
+  font-size: 2.49em
+}
+
+.ML__mathlive .sizing.reset-size6.size1,
+.ML__mathlive .sz-set.reset-size6.size1 {
+  font-size: .41666667em
+}
+
+.ML__mathlive .sizing.reset-size6.size2,
+.ML__mathlive .sz-set.reset-size6.size2 {
+  font-size: .58333333em
+}
+
+.ML__mathlive .sizing.reset-size6.size3,
+.ML__mathlive .sz-set.reset-size6.size3 {
+  font-size: .66666667em
+}
+
+.ML__mathlive .sizing.reset-size6.size4,
+.ML__mathlive .sz-set.reset-size6.size4 {
+  font-size: .75em
+}
+
+.ML__mathlive .sizing.reset-size6.size5,
+.ML__mathlive .sz-set.reset-size6.size5 {
+  font-size: .83333333em
+}
+
+.ML__mathlive .sizing.reset-size6.size6,
+.ML__mathlive .sz-set.reset-size6.size6 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size6.size7,
+.ML__mathlive .sz-set.reset-size6.size7 {
+  font-size: 1.2em
+}
+
+.ML__mathlive .sizing.reset-size6.size8,
+.ML__mathlive .sz-set.reset-size6.size8 {
+  font-size: 1.44166667em
+}
+
+.ML__mathlive .sizing.reset-size6.size9,
+.ML__mathlive .sz-set.reset-size6.size9 {
+  font-size: 1.725em
+}
+
+.ML__mathlive .sizing.reset-size6.size10,
+.ML__mathlive .sz-set.reset-size6.size10 {
+  font-size: 2.075em
+}
+
+.ML__mathlive .sizing.reset-size7.size1,
+.ML__mathlive .sz-set.reset-size7.size1 {
+  font-size: .34722222em
+}
+
+.ML__mathlive .sizing.reset-size7.size2,
+.ML__mathlive .sz-set.reset-size7.size2 {
+  font-size: .48611111em
+}
+
+.ML__mathlive .sizing.reset-size7.size3,
+.ML__mathlive .sz-set.reset-size7.size3 {
+  font-size: .55555556em
+}
+
+.ML__mathlive .sizing.reset-size7.size4,
+.ML__mathlive .sz-set.reset-size7.size4 {
+  font-size: .625em
+}
+
+.ML__mathlive .sizing.reset-size7.size5,
+.ML__mathlive .sz-set.reset-size7.size5 {
+  font-size: .69444444em
+}
+
+.ML__mathlive .sizing.reset-size7.size6,
+.ML__mathlive .sz-set.reset-size7.size6 {
+  font-size: .83333333em
+}
+
+.ML__mathlive .sizing.reset-size7.size7,
+.ML__mathlive .sz-set.reset-size7.size7 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size7.size8,
+.ML__mathlive .sz-set.reset-size7.size8 {
+  font-size: 1.20138889em
+}
+
+.ML__mathlive .sizing.reset-size7.size9,
+.ML__mathlive .sz-set.reset-size7.size9 {
+  font-size: 1.4375em
+}
+
+.ML__mathlive .sizing.reset-size7.size10,
+.ML__mathlive .sz-set.reset-size7.size10 {
+  font-size: 1.72916667em
+}
+
+.ML__mathlive .sizing.reset-size8.size1,
+.ML__mathlive .sz-set.reset-size8.size1 {
+  font-size: .28901734em
+}
+
+.ML__mathlive .sizing.reset-size8.size2,
+.ML__mathlive .sz-set.reset-size8.size2 {
+  font-size: .40462428em
+}
+
+.ML__mathlive .sizing.reset-size8.size3,
+.ML__mathlive .sz-set.reset-size8.size3 {
+  font-size: .46242775em
+}
+
+.ML__mathlive .sizing.reset-size8.size4,
+.ML__mathlive .sz-set.reset-size8.size4 {
+  font-size: .52023121em
+}
+
+.ML__mathlive .sizing.reset-size8.size5,
+.ML__mathlive .sz-set.reset-size8.size5 {
+  font-size: .57803468em
+}
+
+.ML__mathlive .sizing.reset-size8.size6,
+.ML__mathlive .sz-set.reset-size8.size6 {
+  font-size: .69364162em
+}
+
+.ML__mathlive .sizing.reset-size8.size7,
+.ML__mathlive .sz-set.reset-size8.size7 {
+  font-size: .83236994em
+}
+
+.ML__mathlive .sizing.reset-size8.size8,
+.ML__mathlive .sz-set.reset-size8.size8 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size8.size9,
+.ML__mathlive .sz-set.reset-size8.size9 {
+  font-size: 1.19653179em
+}
+
+.ML__mathlive .sizing.reset-size8.size10,
+.ML__mathlive .sz-set.reset-size8.size10 {
+  font-size: 1.43930636em
+}
+
+.ML__mathlive .sizing.reset-size9.size1,
+.ML__mathlive .sz-set.reset-size9.size1 {
+  font-size: .24154589em
+}
+
+.ML__mathlive .sizing.reset-size9.size2,
+.ML__mathlive .sz-set.reset-size9.size2 {
+  font-size: .33816425em
+}
+
+.ML__mathlive .sizing.reset-size9.size3,
+.ML__mathlive .sz-set.reset-size9.size3 {
+  font-size: .38647343em
+}
+
+.ML__mathlive .sizing.reset-size9.size4,
+.ML__mathlive .sz-set.reset-size9.size4 {
+  font-size: .43478261em
+}
+
+.ML__mathlive .sizing.reset-size9.size5,
+.ML__mathlive .sz-set.reset-size9.size5 {
+  font-size: .48309179em
+}
+
+.ML__mathlive .sizing.reset-size9.size6,
+.ML__mathlive .sz-set.reset-size9.size6 {
+  font-size: .57971014em
+}
+
+.ML__mathlive .sizing.reset-size9.size7,
+.ML__mathlive .sz-set.reset-size9.size7 {
+  font-size: .69565217em
+}
+
+.ML__mathlive .sizing.reset-size9.size8,
+.ML__mathlive .sz-set.reset-size9.size8 {
+  font-size: .83574879em
+}
+
+.ML__mathlive .sizing.reset-size9.size9,
+.ML__mathlive .sz-set.reset-size9.size9 {
+  font-size: 1em
+}
+
+.ML__mathlive .sizing.reset-size9.size10,
+.ML__mathlive .sz-set.reset-size9.size10 {
+  font-size: 1.20289855em
+}
+
+.ML__mathlive .sizing.reset-size10.size1,
+.ML__mathlive .sz-set.reset-size10.size1 {
+  font-size: .20080321em
+}
+
+.ML__mathlive .sizing.reset-size10.size2,
+.ML__mathlive .sz-set.reset-size10.size2 {
+  font-size: .2811245em
+}
+
+.ML__mathlive .sizing.reset-size10.size3,
+.ML__mathlive .sz-set.reset-size10.size3 {
+  font-size: .32128514em
+}
+
+.ML__mathlive .sizing.reset-size10.size4,
+.ML__mathlive .sz-set.reset-size10.size4 {
+  font-size: .36144578em
+}
+
+.ML__mathlive .sizing.reset-size10.size5,
+.ML__mathlive .sz-set.reset-size10.size5 {
+  font-size: .40160643em
+}
+
+.ML__mathlive .sizing.reset-size10.size6,
+.ML__mathlive .sz-set.reset-size10.size6 {
+  font-size: .48192771em
+}
+
+.ML__mathlive .sizing.reset-size10.size7,
+.ML__mathlive .sz-set.reset-size10.size7 {
+  font-size: .57831325em
+}
+
+.ML__mathlive .sizing.reset-size10.size8,
+.ML__mathlive .sz-set.reset-size10.size8 {
+  font-size: .69477912em
+}
+
+.ML__mathlive .sizing.reset-size10.size9,
+.ML__mathlive .sz-set.reset-size10.size9 {
+  font-size: .8313253em
+}
+
+.ML__mathlive .sizing.reset-size10.size10,
+.ML__mathlive .sz-set.reset-size10.size10 {
+  font-size: 1em
+}
+
+.ML__mathlive .delimsizing.size1 {
+  font-family: KaTeX_Size1
+}
+
+.ML__mathlive .delimsizing.size2 {
+  font-family: KaTeX_Size2
+}
+
+.ML__mathlive .delimsizing.size3 {
+  font-family: KaTeX_Size3
+}
+
+.ML__mathlive .delimsizing.size4 {
+  font-family: KaTeX_Size4
+}
+
+.ML__mathlive .delimsizing.mult .delim-size1 {
+  font-family: KaTeX_Size1;
+  vertical-align: top
+}
+
+.ML__mathlive .delimsizing.mult .delim-size4 {
+  font-family: KaTeX_Size4;
+  vertical-align: top
+}
+
+.ML__mathlive .nulldelimiter {
+  width: .12em;
+  display: inline-block
+}
+
+.ML__mathlive .op-symbol {
+  position: relative
+}
+
+.ML__mathlive .op-symbol.small-op {
+  font-family: KaTeX_Size1
+}
+
+.ML__mathlive .op-symbol.large-op {
+  font-family: KaTeX_Size2
+}
+
+.ML__mathlive .op-limits .vlist>span {
+  text-align: center
+}
+
+.ML__mathlive .op-over-under {
+  position: relative
+}
+
+.ML__mathlive .op-over-under>.vlist>span:first-child,
+.ML__mathlive .op-over-under>.vlist>span:last-child {
+  text-align: center
+}
+
+.ML__mathlive .accent>.vlist>span {
+  text-align: center
+}
+
+.ML__mathlive .accent .accent-body>span {
+  font-family: KaTeX_Main;
+  width: 0
+}
+
+.ML__mathlive .accent .accent-body.accent-vec>span {
+  position: relative;
+  left: .326em
+}
+
+.ML__mathlive .mtable .vertical-separator {
+  display: inline-block;
+  margin: 0 -.025em;
+  border-right: .05em solid
+}
+
+.ML__mathlive .mtable .arraycolsep {
+  display: inline-block
+}
+
+.ML__mathlive .mtable .col-align-m>.vlist {
+  text-align: center
+}
+
+.ML__mathlive .mtable .col-align-c>.vlist {
+  text-align: center
+}
+
+.ML__mathlive .mtable .col-align-l>.vlist {
+  text-align: left
+}
+
+.ML__mathlive .mtable .col-align-r>.vlist {
+  text-align: right
+}
+
+.ML__error {
+  background-image: radial-gradient(ellipse at center, #cc0041, transparent 70%);
+  background-repeat: repeat-x;
+  background-size: 3px 3px;
+  background-position: 0 98%
+}
+
+.ML__composition {
+  background: #fff1c2;
+  color: #000;
+  -webkit-text-decoration: underline var(--caret, hsl(var(--hue, 212), 40%, 49%));
+  text-decoration: underline var(--caret, hsl(var(--hue, 212), 40%, 49%))
+}
+
+@media (prefers-color-scheme:dark) {
+  .ML__composition {
+    background: #69571c;
+    color: #fff
+  }
+}
+
+.ML__placeholder {
+  opacity: .7;
+  padding-left: .4ex;
+  padding-right: .4ex;
+  padding-top: .4ex
+}
+  </style>
+  <style data-id="bzb6pv" data-refcount="1">
+@-webkit-keyframes ML__caret-blink {
+
+  0%,
+  to {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0
+  }
+}
+
+@keyframes ML__caret-blink {
+
+  0%,
+  to {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0
+  }
+}
+
+.ML__caret:after {
+  content: "";
+  border: none;
+  border-radius: 2px;
+  border-right: 2px solid var(--caret, hsl(var(--hue, 212), 40%, 49%));
+  margin-right: -2px;
+  position: relative;
+  left: -1px;
+  -webkit-animation: ML__caret-blink 1.05s step-end infinite forwards;
+  animation: ML__caret-blink 1.05s step-end infinite forwards
+}
+
+.ML__text-caret:after {
+  content: "";
+  border: none;
+  border-radius: 1px;
+  border-right: 1px solid var(--caret, hsl(var(--hue, 212), 40%, 49%));
+  margin-right: -1px;
+  position: relative;
+  left: 0;
+  -webkit-animation: ML__caret-blink 1.05s step-end infinite forwards;
+  animation: ML__caret-blink 1.05s step-end infinite forwards
+}
+
+.ML__latex-caret:after {
+  content: "_";
+  border: none;
+  margin-right: calc(-1ex - 2px);
+  position: relative;
+  color: var(--caret, hsl(var(--hue, 212), 40%, 49%));
+  -webkit-animation: ML__caret-blink 1.05s step-end infinite forwards;
+  animation: ML__caret-blink 1.05s step-end infinite forwards
+}
+
+.ML__fieldcontainer {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  min-height: 39px;
+  touch-action: none;
+  width: 100%
+}
+
+.ML__fieldcontainer__field {
+  align-self: center;
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+  padding: 2px 0 2px 1px;
+  width: 100%
+}
+
+.ML__virtual-keyboard-toggle {
+  display: none
+}
+
+.ML__virtual-keyboard-toggle>span {
+  display: flex;
+  align-self: center;
+  align-items: center
+}
+
+.ML__virtual-keyboard-toggle.is-visible {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin-right: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: background .2s cubic-bezier(.64, .09, .08, 1);
+  color: var(--primary, hsl(var(--hue, 212), 40%, 50%));
+  fill: currentColor;
+  background: transparent
+}
+
+.ML__virtual-keyboard-toggle.is-visible:hover {
+  background: hsla(0, 0%, 70%, .5);
+  color: #333;
+  fill: currentColor;
+  border-radius: 8px
+}
+
+.ML__textarea__textarea {
+  transform: scale(0);
+  resize: none;
+  outline: none;
+  border: none;
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  font-size: 1em;
+  font-family: KaTeX_Main
+}
+
+.ML__focused .ML__text {
+  background: hsla(var(--hue, 212), 40%, 50%, .1)
+}
+
+.ML__smart-fence__close {
+  opacity: .5
+}
+
+.ML__selection {
+  background: var(--highlight-inactive, #ccc);
+  box-sizing: border-box
+}
+
+.ML__focused .ML__selection {
+  background: var(--highlight, hsl(var(--hue, 212), 97%, 85%)) !important;
+  color: var(--on-highlight)
+}
+
+.ML__contains-caret.ML__close,
+.ML__contains-caret.ML__open,
+.ML__contains-caret>.ML__close,
+.ML__contains-caret>.ML__open,
+.sqrt.ML__contains-caret>.sqrt-sign,
+.sqrt.ML__contains-caret>.vlist>span>.sqrt-line {
+  color: var(--caret, hsl(var(--hue, 212), 40%, 49%))
+}
+
+.ML__latex {
+  font-family: IBM Plex Mono, Source Code Pro, Consolas, Roboto Mono, Menlo, Bitstream Vera Sans Mono, DejaVu Sans Mono, Monaco, Courier, monospace;
+  font-weight: 400;
+  color: var(--primary, hsl(var(--hue, 212), 40%, 50%))
+}
+
+:not(.ML__latex)+.ML__latex {
+  margin-left: .25em
+}
+
+.ML__latex+:not(.ML__latex) {
+  padding-left: .25em
+}
+
+.ML__suggestion {
+  opacity: .5
+}
+
+.ML__virtual-keyboard-toggle.is-visible.is-pressed:hover {
+  background: hsl(var(--hue, 212), 25%, 35%);
+  color: #fafafa;
+  fill: currentColor
+}
+
+.ML__virtual-keyboard-toggle:focus {
+  outline: none;
+  border-radius: 8px;
+  border: 2px solid var(--primary, hsl(var(--hue, 212), 40%, 50%))
+}
+
+.ML__virtual-keyboard-toggle.is-active,
+.ML__virtual-keyboard-toggle.is-active:hover,
+.ML__virtual-keyboard-toggle.is-pressed {
+  background: hsl(var(--hue, 212), 25%, 35%);
+  color: #fafafa;
+  fill: currentColor
+}
+
+.ML__scroller {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  height: 100vh;
+  width: 200px
+}
+
+[data-ML__tooltip] {
+  position: relative
+}
+
+[data-ML__tooltip][data-placement=top]:after {
+  top: inherit;
+  bottom: 100%
+}
+
+[data-ML__tooltip]:after {
+  position: absolute;
+  display: none;
+  content: attr(data-ML__tooltip);
+  top: 110%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 200px;
+  padding: 8px;
+  background: #616161;
+  color: #fff;
+  text-align: center;
+  z-index: 2;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
+  border-radius: 2px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  opacity: 0;
+  transform: scale(.5);
+  transition: all .15s cubic-bezier(.4, 0, 1, 1)
+}
+
+@media only screen and (max-width:767px) {
+  [data-ML__tooltip]:after {
+    padding: 8px 16px;
+    font-size: 14px
+  }
+}
+
+:not(.tracking) [data-ML__tooltip]:hover {
+  position: relative
+}
+
+:not(.tracking) [data-ML__tooltip]:hover:after {
+  visibility: visible;
+  display: inline-table;
+  opacity: 1;
+  transform: scale(1)
+}
+
+[data-ML__tooltip][data-delay]:after {
+  transition-delay: 0s
+}
+
+[data-ML__tooltip][data-delay]:hover:after {
+  transition-delay: 1s
+}
+  </style>
+  <style data-id="-ex4of5" data-refcount="1">
+.ML__popover {
+  visibility: hidden;
+  min-width: 160px;
+  background-color: rgba(97, 97, 97, .95);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
+  transition: all .2s cubic-bezier(.64, .09, .08, 1)
+}
+
+.ML__popover:after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: calc(50% - 3px);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  font-size: 1rem;
+  border-bottom: 5px solid rgba(97, 97, 97, .9)
+}
+
+.ML__popover--reverse-direction:after {
+  top: auto;
+  bottom: -5px;
+  border-top: 5px solid rgba(97, 97, 97, .9);
+  border-bottom: 0
+}
+
+div.ML__popover.is-visible {
+  visibility: inherit;
+  -webkit-animation: ML__fade-in .15s cubic-bezier(0, 0, .2, 1);
+  animation: ML__fade-in .15s cubic-bezier(0, 0, .2, 1)
+}
+
+@-webkit-keyframes ML__fade-in {
+  0% {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes ML__fade-in {
+  0% {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.ML__popover__content {
+  border-radius: 6px;
+  padding: 2px;
+  cursor: pointer;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 8px;
+  margin-right: 8px
+}
+
+.ML__popover__content a {
+  color: #5ea6fd;
+  padding-top: .3em;
+  margin-top: .4em;
+  display: block
+}
+
+.ML__popover__content a:hover {
+  color: #5ea6fd;
+  text-decoration: underline
+}
+
+.ML__popover__content.is-active,
+.ML__popover__content.is-pressed,
+.ML__popover__content:hover {
+  background: hsla(0, 0%, 100%, .1)
+}
+
+.ML__popover__command {
+  font-size: 1.6rem;
+  font-family: KaTeX_Main
+}
+
+.ML__popover__prev-shortcut {
+  height: 31px;
+  opacity: .1;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 2px
+}
+
+.ML__popover__next-shortcut:hover,
+.ML__popover__prev-shortcut:hover {
+  opacity: .3
+}
+
+.ML__popover__next-shortcut.is-active,
+.ML__popover__next-shortcut.is-pressed,
+.ML__popover__prev-shortcut.is-active,
+.ML__popover__prev-shortcut.is-pressed {
+  opacity: 1
+}
+
+.ML__popover__next-shortcut>span,
+.ML__popover__prev-shortcut>span {
+  padding: 5px;
+  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  display: inline-block
+}
+
+.ML__popover__prev-shortcut>span>span {
+  margin-top: -2px;
+  display: block
+}
+
+.ML__popover__next-shortcut>span>span {
+  margin-top: 2px;
+  display: block
+}
+
+.ML__popover__next-shortcut:hover>span,
+.ML__popover__prev-shortcut:hover>span {
+  background: hsla(0, 0%, 100%, .1)
+}
+
+.ML__popover__next-shortcut {
+  height: 34px;
+  opacity: .1;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-top: 2px;
+  padding-bottom: 4px
+}
+
+.ML__popover__shortcut {
+  font-size: .8em;
+  margin-top: .25em
+}
+
+.ML__popover__note,
+.ML__popover__shortcut {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  opacity: .7;
+  padding-top: .25em
+}
+
+.ML__popover__note {
+  font-size: .8rem;
+  line-height: 1em;
+  padding-left: .5em;
+  padding-right: .5em
+}
+
+.ML__shortcut-join {
+  opacity: .5
+}
+  </style>
+  <style data-id="2f5821" data-refcount="1">
+.ML__keystroke-caption {
+  visibility: hidden;
+  background: var(--secondary, hsl(var(--hue, 212), 19%, 26%));
+  border-color: var(--secondary-border, #e8e8e8);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16), 0 3px 6px rgba(0, 0, 0, .23);
+  text-align: center;
+  border-radius: 6px;
+  padding: 16px;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  --keystroke: #fff;
+  --on-keystroke: #555;
+  --keystroke-border: #f7f7f7
+}
+
+@media (prefers-color-scheme:dark) {
+  body:not([theme=light]) .ML__keystroke-caption {
+    --keystroke: hsl(var(--hue, 212), 50%, 30%);
+    --on-keystroke: #fafafa;
+    --keystroke-border: hsl(var(--hue, 212), 50%, 25%)
+  }
+}
+
+body[theme=dark] .ML__keystroke-caption {
+  --keystroke: hsl(var(--hue, 212), 50%, 30%);
+  --on-keystroke: #fafafa;
+  --keystroke-border: hsl(var(--hue, 212), 50%, 25%)
+}
+
+.ML__keystroke-caption>span {
+  min-width: 14px;
+  margin: 0 8px 0 0;
+  padding: 4px;
+  background-color: var(--keystroke);
+  color: var(--on-keystroke);
+  fill: currentColor;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 2px solid var(--keystroke-border)
+}
+  </style>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1101.0" data-gr-ext-installed="" style=""><noscript>You need to enable JavaScript to run this app.</noscript>
+  <div style="width:100%;height:100%" id="root">
+    <div class="App" style="width: 100%; height: 100%;">
+      <div style="position: relative; user-select: auto; float: left; width: 350px; height: 100vh; max-width: 400px; max-height: 100vh; min-width: 200px; min-height: 100vh; box-sizing: border-box; flex-shrink: 0;">
+        <div class="parent" style="width: 100%; height: 100%; background: rgb(24, 26, 27); border: 1px solid rgba(33, 32, 31, 0.1);">
+          <div style="position: relative; width: 100%; height: 48px; background: rgb(32, 34, 36); border: 1px solid rgba(33, 32, 31, 0.1);"><button class="MuiButtonBase-root MuiButton-root MuiButton-text" tabindex="0" type="button" style="position: absolute; left: 0px; color: rgb(64, 100, 141); margin-top: 5px;"><span class="MuiButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                </svg></span><span class="MuiTouchRipple-root"></span></button></div>
+          <div style="width: 100%; height: calc(100% - 48px); overflow: auto;">
+            <div style="width: 100%; height: 58px; border: 1px solid rgb(33, 33, 33); justify-content: center; display: flex; align-items: center;">
+              <div style="position: relative; width: 38px; height: 100%; background-color: rgb(33, 33, 33); float: left; border: 1px solid rgb(37, 39, 39);"><label class="blured" style="position: absolute; font-size: 10px; left: 0px; top: 0px;">1</label>
+                <div style="position: absolute; left: 50%; transform: translate(-50%, -50%); top: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-lightning-fill" viewBox="0 0 16 16" style="color: rgb(221, 119, 118);">
+                    <path d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641l2.5-8.5z"></path>
+                  </svg></div>
+              </div>
+              <div style="color: white; float: left; width: calc(100% - 38px);">
+                <div style="position: relative; margin-left: 10px; font-size: 120%; width: calc(100% - 10px);" class="ML__isExtendedWidth"><span class="ML__textarea"><textarea class="ML__textarea__textarea" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" aria-hidden="true" tabindex="-1"></textarea></span><span class="ML__fieldcontainer"><span class="ML__fieldcontainer__field"><span translate="no" aria-hidden="true" class="ML__mathlive"><span class="ML__strut" style="height:0em"></span><span data-atom-id="0" class="ML__contains ML__base"></span></span></span>
+                    <div part="virtual-keyboard-toggle" class="ML__virtual-keyboard-toggle is-visible" role="button" data-ml__tooltip="Toggle Virtual Keyboard" data-command="&quot;toggleVirtualKeyboard&quot;" data-command-alt="&quot;toggleVirtualKeyboardAlt&quot;" data-command-shift="&quot;toggleVirtualKeyboardShift&quot;"><span style="width: 21px; margin-top: 4px;"><svg style="width: 21px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                          <path d="M528 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h480c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm16 336c0 8.823-7.177 16-16 16H48c-8.823 0-16-7.177-16-16V112c0-8.823 7.177-16 16-16h480c8.823 0 16 7.177 16 16v288zM168 268v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm96 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm96 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm96 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm-336 80v-24c0-6.627-5.373-12-12-12H84c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm384 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zM120 188v-24c0-6.627-5.373-12-12-12H84c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm96 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm96 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm96 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm96 0v-24c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v24c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12zm-96 152v-8c0-6.627-5.373-12-12-12H180c-6.627 0-12 5.373-12 12v8c0 6.627 5.373 12 12 12h216c6.627 0 12-5.373 12-12z"></path>
+                        </svg></span></div>
+                  </span>
+                  <div class="ML__sr-only"><span aria-live="assertive" aria-atomic="true"></span><span><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="" style="position: absolute; user-select: none; width: 100%; height: 10px; top: -5px; left: 0px; cursor: row-resize;"></div>
+          <div class="" style="position: absolute; user-select: none; width: 10px; height: 100%; top: 0px; right: -5px; cursor: col-resize;"></div>
+          <div class="" style="position: absolute; user-select: none; width: 100%; height: 10px; bottom: -5px; left: 0px; cursor: row-resize;"></div>
+          <div class="" style="position: absolute; user-select: none; width: 10px; height: 100%; top: 0px; left: -5px; cursor: col-resize;"></div>
+          <div class="" style="position: absolute; user-select: none; width: 20px; height: 20px; right: -10px; top: -10px; cursor: ne-resize;"></div>
+          <div class="" style="position: absolute; user-select: none; width: 20px; height: 20px; right: -10px; bottom: -10px; cursor: se-resize;"></div>
+          <div class="" style="position: absolute; user-select: none; width: 20px; height: 20px; left: -10px; bottom: -10px; cursor: sw-resize;"></div>
+          <div class="" style="position: absolute; user-select: none; width: 20px; height: 20px; left: -10px; top: -10px; cursor: nw-resize;"></div>
+        </div>
+      </div>
+      <div style="float: none; overflow: hidden; background: red;"><canvas width="1920" height="950" style="cursor: auto; background: rgb(24, 26, 27);"></canvas></div>
+      <div style="position: absolute; right: 0px; bottom: 0px; margin-right: 10px; margin-bottom: 10px;"><button class="MuiButtonBase-root MuiFab-root shadow MuiFab-sizeMedium" tabindex="0" type="button" aria-label="Settings" style="background: rgb(42, 45, 47);"><span class="MuiFab-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="color: rgb(255, 255, 255);">
+              <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"></path>
+            </svg></span><span class="MuiTouchRipple-root"></span></button></div>
+    </div>
+  </div>
+  <script>
+! function(e) {
+  function r(r) {
+    for (var n, a, i = r[0], c = r[1], l = r[2], p = 0, s = []; p < i.length; p++) a = i[p], Object.prototype.hasOwnProperty.call(o, a) && o[a] && s.push(o[a][0]), o[a] = 0;
+    for (n in c) Object.prototype.hasOwnProperty.call(c, n) && (e[n] = c[n]);
+    for (f && f(r); s.length;) s.shift()();
+    return u.push.apply(u, l || []), t()
+  }
+
+  function t() {
+    for (var e, r = 0; r < u.length; r++) {
+      for (var t = u[r], n = !0, i = 1; i < t.length; i++) {
+        var c = t[i];
+        0 !== o[c] && (n = !1)
+      }
+      n && (u.splice(r--, 1), e = a(a.s = t[0]))
+    }
+    return e
+  }
+  var n = {},
+    o = {
+      1: 0
+    },
+    u = [];
+
+  function a(r) {
+    if (n[r]) return n[r].exports;
+    var t = n[r] = {
+      i: r,
+      l: !1,
+      exports: {}
+    };
+    return e[r].call(t.exports, t, t.exports, a), t.l = !0, t.exports
+  }
+  a.e = function(e) {
+    var r = [],
+      t = o[e];
+    if (0 !== t)
+      if (t) r.push(t[2]);
+      else {
+        var n = new Promise((function(r, n) {
+          t = o[e] = [r, n]
+        }));
+        r.push(t[2] = n);
+        var u, i = document.createElement("script");
+        i.charset = "utf-8", i.timeout = 120, a.nc && i.setAttribute("nonce", a.nc), i.src = function(e) {
+          return a.p + "static/js/" + ({} [e] || e) + "." + {
+            3: "917293ea"
+          } [e] + ".chunk.js"
+        }(e);
+        var c = new Error;
+        u = function(r) {
+          i.onerror = i.onload = null, clearTimeout(l);
+          var t = o[e];
+          if (0 !== t) {
+            if (t) {
+              var n = r && ("load" === r.type ? "missing" : r.type),
+                u = r && r.target && r.target.src;
+              c.message = "Loading chunk " + e + " failed.\n(" + n + ": " + u + ")", c.name = "ChunkLoadError", c.type = n, c.request = u, t[1](c)
+            }
+            o[e] = void 0
+          }
+        };
+        var l = setTimeout((function() {
+          u({
+            type: "timeout",
+            target: i
+          })
+        }), 12e4);
+        i.onerror = i.onload = u, document.head.appendChild(i)
+      } return Promise.all(r)
+  }, a.m = e, a.c = n, a.d = function(e, r, t) {
+    a.o(e, r) || Object.defineProperty(e, r, {
+      enumerable: !0,
+      get: t
+    })
+  }, a.r = function(e) {
+    "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+      value: "Module"
+    }), Object.defineProperty(e, "__esModule", {
+      value: !0
+    })
+  }, a.t = function(e, r) {
+    if (1 & r && (e = a(e)), 8 & r) return e;
+    if (4 & r && "object" == typeof e && e && e.__esModule) return e;
+    var t = Object.create(null);
+    if (a.r(t), Object.defineProperty(t, "default", {
+        enumerable: !0,
+        value: e
+      }), 2 & r && "string" != typeof e)
+      for (var n in e) a.d(t, n, function(r) {
+        return e[r]
+      }.bind(null, n));
+    return t
+  }, a.n = function(e) {
+    var r = e && e.__esModule ? function() {
+      return e.default
+    } : function() {
+      return e
+    };
+    return a.d(r, "a", r), r
+  }, a.o = function(e, r) {
+    return Object.prototype.hasOwnProperty.call(e, r)
+  }, a.p = "/graph.js/", a.oe = function(e) {
+    throw console.error(e), e
+  };
+  var i = this.webpackJsonpexample = this.webpackJsonpexample || [],
+    c = i.push.bind(i);
+  i.push = r, i = i.slice();
+  for (var l = 0; l < i.length; l++) r(i[l]);
+  var f = c;
+  t()
+}([])
+  </script>
+  <script src="graph.js"></script>
+  <script src="graphj.js"></script>
+  <div aria-hidden="true" data-refcount="1" class="ML__popover" id="mathlive-popover-panel"></div>
+  <div aria-hidden="true" data-refcount="1" class="ML__keystroke-caption" id="mathlive-keystroke-caption-panel"></div>
+</body>
+
+</html>
